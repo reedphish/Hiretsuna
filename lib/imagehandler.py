@@ -1,27 +1,35 @@
 from lib.texttransform import TextTransform
-import png
+from PIL import Image
+import shutil
 
 class ImageHandler:
-	""" Utility class for inserting data into image and extract it """
 	@staticmethod
-	def createImage(image_name, encoded_text):
-		""" Create image and insert encoded text into it """
-		image = open(image_name, "wb")
+	def encodeImage(image_base, image_new, encoded_text):
+		""" Encode image """
+		image = Image.open(image_base)
+		pixel_map = image.load()
 
-		w = png.Writer(1, len(encoded_text))
-		w.write(image, encoded_text);
-		image.close()
+		for index, rgb in enumerate(encoded_text):
+			pixel_map[0, index] = rgb
 
-		return True
+		image.save(image_new)
+
+		return len(encoded_text)
 
 	@staticmethod
-	def extractFromImage(image_name):
-		""" Extract encoded text """
-		reader = png.Reader(file=open(image_name, "rb"))
-		image_data = reader.read()
+	def decodeImage(image_name, length):
+		""" Decode image """
+		image = Image.open(image_name)
+		pixel_map = image.load()
 
-		width = image_data[0]
-		height = image_data[1]
-		pixel_data = list(image_data[2])
+		encoded_text = []
 
-		return TextTransform.decode(pixel_data)
+		for index in range(length):
+			pm = pixel_map[0, index]
+
+			if len(pm) > 3:
+				pm = pm[0:3]
+
+			encoded_text.append(pm)
+
+		return TextTransform.decode(encoded_text)

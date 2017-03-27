@@ -22,7 +22,7 @@ class TextTransform:
 				else:
 					encoded.append(ord(character))
 
-			chunk_list[chunk_index] = encoded
+			chunk_list[chunk_index] = tuple(encoded)
 
 		return chunk_list
 

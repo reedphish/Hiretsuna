@@ -6,28 +6,22 @@ Utility script for creating malware PNG's. Remember to pip install the following
 * pypng
 """
 
-clear_file = open("example_texts/Long_poem.txt", "r")
+clear_file = open("example_texts/Short_poem.txt", "r")
 clear_text = clear_file.read()
 clear_file.close()
 
 encoded_text = TextTransform.encode(clear_text)
-
 decoded_text = TextTransform.decode(encoded_text)
-
-print("{0}:{1}".format(encoded_text, decoded_text))
 
 if clear_text == decoded_text:
 	print("\nEncode decode successfully")
 else:
 	print("\nEncode decode: FAILED")
 
-# Create image
-print("\nCreating image ...")
-image_name = "example_images/example.png"
-ImageHandler.createImage(image_name, encoded_text)
+original_image = "base_images/psychedelic-4.png"
+encoded_image = "example_images/psychedelic-4.png"
 
-# Decode image
-text_from_image = ImageHandler.extractFromImage(image_name)
+length = ImageHandler.encodeImage(original_image, encoded_image, encoded_text)
+decoded_text = ImageHandler.decodeImage(encoded_image, length)
 
-print("\nImage decoded")
-print(text_from_image)
+print("Decoded text from image:\n{0}".format(decoded_text))
