@@ -4,7 +4,7 @@ import shutil
 
 class ImageHandler:
 	@staticmethod
-	def encodeImage(image_base, image_new, encoded_text):
+	def encode(image_base, image_new, encoded_text):
 		""" Encode image """
 		image = Image.open(image_base)
 		pixel_map = image.load()
@@ -17,7 +17,7 @@ class ImageHandler:
 		return len(encoded_text)
 
 	@staticmethod
-	def decodeImage(image_name, length):
+	def decode(image_name, length):
 		""" Decode image """
 		image = Image.open(image_name)
 		pixel_map = image.load()
