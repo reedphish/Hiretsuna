@@ -2,8 +2,10 @@
 
 ## About
 
-Hiretsuna is a project initalized by Reedphish Heavy Industries (RHI) for malware research purposed.
+Hiretsuna is a project initalized by Reedphish Heavy Industries (RHI) for malware research purposes.
 The name Hiretsuna itself is Japanese and means ___sneaky___. 
+
+Beware, this piece of software contain bugs. 
 
 ## Prerequisites
 
@@ -13,7 +15,7 @@ The name Hiretsuna itself is Japanese and means ___sneaky___.
 ## Usage
 
 For now there are two scripts available. One for embedding "secret" text in image hidden in RGB values
-of the first "column" and one script for decoding. Both has been testen on PNG's.
+of the first "column" and one script for decoding. Both has been tested on PNG's solely.
 
 ### Encode image
 
