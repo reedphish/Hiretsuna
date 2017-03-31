@@ -1,14 +1,20 @@
 from lib.texttransform import TextTransform
 from lib.imagehandler import ImageHandler
-import sys
-
-clear_text_file = sys.argv[1]
-base_image_path = sys.argv[2]
-new_image_path = sys.argv[3]
+import sys, argparse
 
 print("Image encoder - Reedphish Heavy Industries 2017")
 
-encoded_text = TextTransform.encode(open(clear_text_file, "r").read())
-encoding_key = ImageHandler.encode(base_image_path, new_image_path, encoded_text)
+parser = argparse.ArgumentParser(description="Encode image with secret text")
+parser.add_argument("cleartextpath", metavar="ctp", type=str, help="Path to clear text file to be inserted into image")
+parser.add_argument("baseimagepath", metavar="bip", type=str, help="Path to base image to work on")
+parser.add_argument("newimagepath", metavar="nip", type=str, help="Path to output image")
 
-print("\nImage {0} encoded with key {1}\n".format(new_image_path, encoding_key))
+args = parser.parse_args()
+
+try:
+	encoded_text = TextTransform.encode(open(args.cleartextpath, "r").read())
+	encoding_key = ImageHandler.encode(args.baseimagepath, args.newimagepath, encoded_text)
+
+	print("\nImage {0} encoded with key {1}\n".format(args.newimagepath, encoding_key))
+except Exception as e:
+	print("[ERROR] Unable to encode image: {0}".format(e))

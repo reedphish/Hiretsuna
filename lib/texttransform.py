@@ -22,6 +22,9 @@ class TextTransform:
 				else:
 					encoded.append(ord(character))
 
+			if len(encoded) == 3:
+				encoded.append(0)
+
 			chunk_list[chunk_index] = tuple(encoded)
 
 		return chunk_list
