@@ -6,16 +6,14 @@ class ImageHandler:
 	@staticmethod
 	def encode(image_base, image_new, encoded_text):
 		""" Encode image """
-		image = Image.open(image_base)
-		image = image.convert("RGBA")
+		image = Image.open(image_base).convert("RGBA")
 		pixel_map = image.load()
-
 
 		height = image.height
 		text_length = len(encoded_text)
 
 		if text_length > height:
-			raise "Encoded text to big to fit"
+			raise Exception("Encoded text to big to fit")
 		else:
 			# Insert encoded text in first "column"
 			for index, rgb in enumerate(encoded_text):
