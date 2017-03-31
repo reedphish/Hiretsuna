@@ -10,10 +10,25 @@ class ImageHandler:
 		image = image.convert("RGBA")
 		pixel_map = image.load()
 
-		for index, rgb in enumerate(encoded_text):
-			pixel_map[0, index] = rgb
 
-		image.save(image_new)
+		height = image.height
+		text_length = len(encoded_text)
+
+		if text_length > height:
+			raise "Encoded text to big to fit"
+		else:
+			# Insert encoded text in first "column"
+			for index, rgb in enumerate(encoded_text):
+				pixel_map[0, index] = rgb
+			
+			# Pad image height
+			for pad_index in range(text_length, height):
+				rgba_list = list(pixel_map[0, pad_index])
+				rgba_list[-1] = 0
+
+				pixel_map[0, pad_index] = tuple(rgba_list)
+
+			image.save(image_new)
 
 		return len(encoded_text)
 
