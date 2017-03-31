@@ -7,6 +7,7 @@ class ImageHandler:
 	def encode(image_base, image_new, encoded_text):
 		""" Encode image """
 		image = Image.open(image_base)
+		image = image.convert("RGBA")
 		pixel_map = image.load()
 
 		for index, rgb in enumerate(encoded_text):
